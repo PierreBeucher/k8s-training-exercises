@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: auto-vote
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      completions: 10
+      parallelism: 10
+      template:
+        spec:
+          containers:
+          - name: cheater
+            image: curlimages/curl:8.4.0
+            command:
+            - /bin/sh
+            - -c
+            # Also possible to use vote.default.cluster.local
+            - >-
+              curl 'http://vote:5000/'
+              -X POST
+              -H 'Content-Type: appliccronation/x-www-form-urlencoded'
+              -H 'Origin: http://localhost:80'
+              -H "Cookie: voter_id=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 15 ; echo '')"
+              --data-raw 'vote=b'
+          restartPolicy: OnFailure
