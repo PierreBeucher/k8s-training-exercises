@@ -13,7 +13,15 @@
           default = pkgs.mkShell {
             packages = with pkgs; [
               kind
+              kubernetes-helm
             ];
+
+            shellHook = ''
+              kind create cluster
+              kind export kubeconfig
+
+              trap "echo 'Stopping kind cluster...' && kind delete cluster" EXIT
+            '';
           };
         };
       }
