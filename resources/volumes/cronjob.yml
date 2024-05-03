@@ -1,6 +1,6 @@
 # Backup CronJob template with missing bits
 # => Add proper emptyDir volume definition
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: postgres-backup
@@ -52,7 +52,7 @@ spec:
               ls -al /backup
 
               # echo command for demo
-              echo 'aws s3 cp /backup/dump.sql s3://your-bucket-name/path/'" 
+              echo "aws s3 cp /backup/dump.sql s3://your-bucket-name/path/"
 
               echo "Done AWS upload at $(date +%Y-%m-%d-%H:%M:%S)"
             env:
