@@ -1,0 +1,73 @@
+# Backup CronJob template with missing bits
+# => Add proper emptyDir volume definition
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: postgres-backup
+spec:
+  schedule: "0 3 * * *"  # Daily at 3 AM
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          initContainers:
+          - name: postgres-dump
+            image: postgres:15-alpine
+            command: [ "/bin/sh", "-c" ]
+            args:
+            - |
+              set -e
+
+              echo "Start dump at $(date +%Y-%m-%d-%H:%M:%S)"
+
+              echo "Content of /backup before:"
+              ls -al /backup
+
+              echo "Dumping database $PGUSER@$PGHOST"
+              
+              pg_dump --format custom > /backup/dump.sql
+
+              echo "Content of /backup after:"
+              ls -al /backup
+
+              echo "Dump done at $(date +%Y-%m-%d-%H:%M:%S)"
+            env:
+            - name: PGPASSWORD
+              value: postgres
+            - name: PGUSER 
+              value: postgres
+            - name: PGHOST
+              value: db
+          containers:
+          - name: aws-upload
+            image: amazon/aws-cli
+            command: [ "/bin/sh", "-c" ]
+            args: 
+            - |
+              set -e
+              
+              echo "Start AWS upload at $(date +%Y-%m-%d-%H:%M:%S)"
+              
+              echo "Content of /backup:"
+              ls -al /backup
+
+              # echo command for demo
+              echo 'aws s3 cp /backup/dump.sql s3://your-bucket-name/path/'" 
+
+              echo "Done AWS upload at $(date +%Y-%m-%d-%H:%M:%S)"
+            env:
+            - name: AWS_ACCESS_KEY_ID
+              value: "dummy" # should use a real secret
+              # valueFrom:
+              #   secretKeyRef:
+              #     name: aws-credentials
+              #     key: accessKeyId
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "dummy" # should use a real secret
+              # valueFrom:
+              #   secretKeyRef:
+              #     name: aws-credentials
+              #     key: secretAccessKey
+            - name: AWS_DEFAULT_REGION
+              value: eu-west-3
+          restartPolicy: Never
