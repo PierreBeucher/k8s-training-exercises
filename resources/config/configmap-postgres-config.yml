@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-config
+data:
+  postgresql.conf: |
+    listen_addresses = '*'
+    max_connections = 50
+    authentication_timeout = 5min

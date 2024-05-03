@@ -4,7 +4,8 @@ metadata:
   name: vote
 spec:
   rules:
-  - host: vote.k8s.crafteo.io
+  # Change with your name here
+  - host: vote.<YOUR NAME>.k8s.crafteo.io
     http:
       paths:
       - path: /

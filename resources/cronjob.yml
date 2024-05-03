@@ -1,9 +1,11 @@
+# Vote on Example Voting App every minute via a Job
+# Using Votes's Service
 apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: auto-vote
 spec:
-  schedule: "* * * * *"
+  schedule: "* * * * *" # Run every minute
   jobTemplate:
     spec:
       completions: 10
@@ -20,7 +22,7 @@ spec:
             - >-
               curl 'http://vote:5000/'
               -X POST
-              -H 'Content-Type: appliccronation/x-www-form-urlencoded'
+              -H 'Content-Type: application/x-www-form-urlencoded'
               -H 'Origin: http://localhost:80'
               -H "Cookie: voter_id=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 15 ; echo '')"
               --data-raw 'vote=b'

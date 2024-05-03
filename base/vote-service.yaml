@@ -6,12 +6,10 @@ metadata:
   name: vote
 spec:
   type: ClusterIP
-  clusterIP: "None"
   ports:
   - name: "vote-service"
     port: 5000
     targetPort: 80
-    # nodePort: 31000
   selector:
     app: vote
   
