@@ -3,13 +3,11 @@
 apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: auto-vote
+  name: vote-cheater
 spec:
   schedule: "* * * * *" # Run every minute
   jobTemplate:
     spec:
-      completions: 10
-      parallelism: 10
       template:
         spec:
           containers:
@@ -25,5 +23,5 @@ spec:
               -H 'Content-Type: application/x-www-form-urlencoded'
               -H 'Origin: http://localhost:80'
               -H "Cookie: voter_id=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 15 ; echo '')"
-              --data-raw 'vote=b'
+              --data-raw 'vote=a'
           restartPolicy: OnFailure

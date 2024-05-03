@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: hello
+  name: solo
 spec:
   containers:
-  - name: hello
+  - name: han
     image: us-docker.pkg.dev/google-samples/containers/gke/whereami:v1.2.21
     ports:
     - containerPort: 8080

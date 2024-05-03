@@ -6,7 +6,7 @@ spec:
   type: ClusterIP
   ports:
   - name: "hello-service"
-    port: 8080
+    port: 9090
     targetPort: 8080
   selector:
     app: hello
