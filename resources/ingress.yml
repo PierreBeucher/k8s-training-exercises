@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: vote
+  name: example-voting-app-with-tls
 spec:
   rules:
   # Change with your name here
