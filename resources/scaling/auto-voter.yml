@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auto-voter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auto-voter
+  template:
+    metadata:
+      labels:
+        app: auto-voter
+    spec:
+      containers:
+      - name: voter
+        image: curlimages/curl:8.4.0
+        resources: {}
+        command:
+        - /bin/sh
+        - -c
+        - |-
+          while true; do
+            curl 'http://vote:5000/' \
+              -X POST \
+              -H 'Content-Type: application/x-www-form-urlencoded' \
+              -H 'Origin: http://localhost:80' \
+              -H "Cookie: voter_id=$(tr -dc A-Za-z0-9 < /dev/urandom | head -c 15 ; echo '')" \
+              --data-raw 'vote=a';
+            sleep 0.05
+          done
