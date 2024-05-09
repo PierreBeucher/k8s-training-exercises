@@ -3,11 +3,12 @@ kind: Certificate
 metadata:
   name: ingress-certificate-secret
 spec:
-  secretName: crafteo-tls
-  commonName: vote.k8s.crafteo.io
+  # Must match ingress secret name
+  secretName: ingress-certificate-secret
+  commonName: vote.<YOUR_NAME>.k8s.crafteo.io
   dnsNames:
-  - vote.k8s.crafteo.io
-  - result.k8s.crafteo.io
+  - vote.<YOUR_NAME>.k8s.crafteo.io
+  - result.<YOUR_NAME>.k8s.crafteo.io
   issuerRef:
-    name: <issuer-name>
-    kind: Issuer # or ClusterIssuer
+    name: cluster-issuer
+    kind: ClusterIssuer

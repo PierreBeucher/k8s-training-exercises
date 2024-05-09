@@ -4,7 +4,7 @@ metadata:
   name: example-voting-app-with-tls
 spec:
   rules:
-  - host: vote.<YOUR NAME>.k8s.crafteo.io
+  - host: vote.<YOUR_NAME>.k8s.crafteo.io
     http:
       paths:
       - path: /
@@ -14,7 +14,7 @@ spec:
             name: vote
             port:
               number: 5000
-  - host: result.<YOUR NAME>.k8s.crafteo.io
+  - host: result.<YOUR_NAME>.k8s.crafteo.io
     http:
       paths:
       - path: /
@@ -26,6 +26,6 @@ spec:
               number: 5001
   tls:
   - hosts:
-    - vote.<YOUR NAME>.k8s.crafteo.io
-    - result.<YOUR NAME>.k8s.crafteo.io
+    - vote.<YOUR_NAME>.k8s.crafteo.io
+    - result.<YOUR_NAME>.k8s.crafteo.io
     secretName: ingress-certificate-secret
