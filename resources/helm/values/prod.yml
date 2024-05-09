@@ -1,0 +1,10 @@
+db:
+  postgresUser: postgres
+  postgresPasswordSecret:
+    name: postgres-password
+    key: password
+
+result:
+  replicas: 3
+  image:
+    tag: 1.2-alpine

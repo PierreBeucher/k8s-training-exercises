@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "example-voting-app-chart.fullname" . }}-worker
+  labels:
+    app: worker
+  {{- include "example-voting-app-chart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.worker.replicas }}
+  selector:
+    matchLabels:
+      app: worker
+    {{- include "example-voting-app-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: worker
+      {{- include "example-voting-app-chart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - image: {{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag | default .Chart.AppVersion }}
+        name: worker
+        resources: {}

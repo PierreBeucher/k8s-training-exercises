@@ -1,0 +1,31 @@
+db:
+  postgresPassword: postgres
+  postgresUser: postgres
+  image:
+    repository: postgres
+    tag: 15-alpine
+  replicas: 1
+
+redis:
+  image:
+    repository: redis
+    tag: alpine
+  replicas: 1
+
+result:
+  replicas: 1
+  image:
+    repository: crafteo/example-voting-app-result
+    tag: 1.1-alpine
+
+vote:
+  replicas: 1
+  image:
+    repository: crafteo/example-voting-app-vote
+    tag: 1.1-alpine
+      
+worker:
+  replicas: 1
+  image:
+    repository: crafteo/example-voting-app-worker
+    tag: 1.1-alpine

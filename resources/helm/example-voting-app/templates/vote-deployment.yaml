@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "example-voting-app-chart.fullname" . }}-vote
+  labels:
+    app: vote
+  {{- include "example-voting-app-chart.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.vote.replicas }}
+  selector:
+    matchLabels:
+      app: vote
+    {{- include "example-voting-app-chart.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: vote
+      {{- include "example-voting-app-chart.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - image: {{ .Values.vote.image.repository }}:{{ .Values.vote.image.tag | default .Chart.AppVersion }}
+        name: vote
+        ports:
+        - containerPort: 80
+          name: vote
+        resources: {}

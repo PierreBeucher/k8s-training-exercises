@@ -1,0 +1,4 @@
+result:
+  replicas: 3
+  image:
+    tag: 1.2-alpine

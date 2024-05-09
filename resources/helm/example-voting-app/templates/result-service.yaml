@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: result
+  labels:
+    app: result
+  {{- include "example-voting-app-chart.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    app: result
+  {{- include "example-voting-app-chart.selectorLabels" . | nindent 4 }}
+  ports:
+  - name: result-service
+    port: 5001
+    targetPort: 80

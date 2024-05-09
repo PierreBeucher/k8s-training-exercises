@@ -15,7 +15,7 @@ spec:
         app: result
     spec:
       containers:
-      - image: dockersamples/examplevotingapp_result
+      - image: crafteo/example-voting-app-result:1.1-alpine
         name: result
         ports:
         - containerPort: 80
