@@ -2,8 +2,6 @@
 resources:
   - ../../../base
 
-namespace: pierre
-
 namePrefix: dev-
 
 commonLabels:
