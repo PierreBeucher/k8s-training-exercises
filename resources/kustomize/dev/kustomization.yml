@@ -1,0 +1,10 @@
+# dev/kustomization.yaml
+resources:
+  - ../../../base
+
+namespace: pierre
+
+namePrefix: dev-
+
+commonLabels:
+  env: dev
