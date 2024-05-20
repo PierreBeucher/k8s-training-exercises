@@ -17,10 +17,7 @@
             ];
 
             shellHook = ''
-              kind create cluster
-              kind export kubeconfig
-
-              trap "echo 'Stopping kind cluster...' && kind delete cluster" EXIT
+              echo "Run kind create cluster && kind export kubeconfig to use local Kubernetes cluster"
             '';
           };
         };
