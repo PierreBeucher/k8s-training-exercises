@@ -4,4 +4,6 @@ metadata:
   name: db-env
 data:
   POSTGRES_USER: postgres
+
+  # BAD PRACTICE - A PASSWORD SHOULD NOT BE STORED IN A CONFIGMAP
   POSTGRES_PASSWORD: postgres
